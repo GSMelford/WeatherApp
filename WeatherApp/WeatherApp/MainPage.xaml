@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherApp.MainPage"
+             Title="Weather">
+    
+    <ContentPage Title="Weather" BackgroundColor="#0f0f0f">
+        
+        <Grid Margin="8" 
+              Padding="0">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Frame Grid.Row="0" 
+                   Margin="0"
+                   Padding="2" 
+                   BackgroundColor="#282828"
+                   CornerRadius="4">
+                
+                <Entry Placeholder="Type your city here ..." 
+                       PlaceholderColor="Gray" 
+                       TextColor="Snow" Completed="ChangeCity">
+                </Entry>
+                
+            </Frame>
+            
+            <Frame Grid.Row="1" 
+                   Margin="0"
+                   Padding="8" 
+                   BackgroundColor="#282828"
+                   CornerRadius="4">
+                
+                <Grid Padding="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                
+                    <StackLayout Grid.Column="0" Grid.Row="0" HorizontalOptions="Start">
+                        <Label Text="right now" FontSize="Small" TextColor="Snow"></Label>
+                        <Label x:Name="LocationLabel" FontSize="Small" TextColor="Snow"></Label>
+                    </StackLayout>
+                
+                    <StackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="Start">
+                        <Label x:Name="TemperatureLabel" FontSize="Header" TextColor="Snow"></Label>
+                        <Label x:Name="FeelsLikeTemperatureLabel" FontSize="Medium" TextColor="Snow"></Label>
+                    </StackLayout>
+                
+                    <StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="Center">
+                        <Picker x:Name="FirstDegreeProviderPicker"
+                                TextColor="Snow" 
+                                HorizontalTextAlignment="Center"
+                                SelectedIndexChanged="DegreeChanged"
+                                WidthRequest="100">
+                
+                            <Picker.Items>
+                                <x:String>  Celsius  </x:String>
+                                <x:String>Fahrenheit</x:String>
+                            </Picker.Items>
+                
+                        </Picker>
+                        <Label x:Name="WeatherStatusLabel" FontSize="Medium" TextColor="Snow"></Label>
+                    </StackLayout>
+                
+                    <StackLayout Grid.Column="1" Grid.Row="1">
+                        <Image x:Name="WeatherIconImage" Aspect="Fill" Margin="0" HeightRequest="128" WidthRequest="128"></Image>
+                    </StackLayout>
+                </Grid>
+                
+            </Frame>
+            
+            <Frame Grid.Row="2"
+                   Margin="0"
+                   Padding="40" 
+                   BackgroundColor="#282828"
+                   CornerRadius="4"
+                   VerticalOptions="FillAndExpand">
+                
+                <StackLayout>
+                    <Label x:Name="LastUpdatedTimeLabel" FontSize="Medium" TextColor="Snow"></Label>
+                    <Label x:Name="WindSpeedLabel" FontSize="Medium" TextColor="Snow"></Label>
+                    <Label x:Name="WindDirectLabel" FontSize="Medium" TextColor="Snow"></Label>
+                    <Label x:Name="PressureLabel" FontSize="Medium" TextColor="Snow"></Label>
+                </StackLayout>
+                
+            </Frame>
+            
+            <StackLayout Grid.Row="3" 
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="End"
+                        Padding="10">
+            
+                <Picker x:Name="FirstWeatherProviderPicker"
+                        TextColor="Snow" 
+                        Title="Choose your weather provider"
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="OnWhetherProviderPickerChanged">
+                
+                    <Picker.Items>
+                        <x:String>All Providers</x:String>
+                        <x:String>Whether Api</x:String>
+                        <x:String>Open Weather</x:String>
+                    </Picker.Items>
+                </Picker>
+                
+            </StackLayout>
+            
+        </Grid>
+        
+    </ContentPage>
+    
+    <ContentPage Title="Forecast" BackgroundColor="#0f0f0f">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+            
+            <StackLayout Grid.Row="0">
+                <Picker x:Name="SecondWeatherProviderPicker"
+                        TextColor="Snow" 
+                        Title="Choose your weather provider"
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="OnWhetherProviderPickerChanged">
+                
+                    <Picker.Items>
+                        <x:String>All Providers</x:String>
+                        <x:String>Whether Api</x:String>
+                        <x:String>Open Weather</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+            
+            <ScrollView Grid.Row="1">
+                <StackLayout x:Name="ForecastStackLayout">
+            
+                </StackLayout>
+            </ScrollView>
+            
+            <StackLayout Grid.Row="2" 
+                         Orientation="Horizontal"
+                         Padding="10"
+                         HorizontalOptions="CenterAndExpand">
+            
+                <Picker x:Name="DaysPicker"
+                        TextColor="Snow" 
+                        Title="Choose number of days"
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="OnDaysPickerChanged"
+                        WidthRequest="100">
+                
+                    <Picker.Items>
+                        <x:String>1 Day</x:String>
+                        <x:String>2 Days</x:String>
+                        <x:String>3 Days</x:String>
+                        <x:String>4 Days</x:String>
+                        <x:String>5 Days</x:String>
+                    </Picker.Items>
+                </Picker>
+                
+                <Picker x:Name="SecondDegreeProviderPicker"
+                        TextColor="Snow" 
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="DegreeChanged"
+                        WidthRequest="100">
+                
+                    <Picker.Items>
+                        <x:String>  Celsius  </x:String>
+                        <x:String>Fahrenheit</x:String>
+                    </Picker.Items>
+                
+                </Picker>
+                
+            </StackLayout>
+        </Grid>
+        
+        
+    </ContentPage>
+
+</TabbedPage>
